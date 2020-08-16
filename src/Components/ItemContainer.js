@@ -8,7 +8,7 @@ const ItemContainer = ({ Title, imdbID, Poster, Year, ShowDetail, DetailRequest,
 
         ActivateModal(true);
         DetailRequest(true);
-        fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`)
+        fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`)
             .then(resp => resp)
             .then(resp => resp.json())
             .then(response => {
@@ -38,8 +38,11 @@ const ItemContainer = ({ Title, imdbID, Poster, Year, ShowDetail, DetailRequest,
                     />
                     <Row style={{ marginTop: '10px', justifyContent: 'center' }} className="gutter-row">
                         <Col>
-                            <div>ID: {imdbID} </div>
                             <div> Year: {Year}</div>
+                        </Col>
+                        <Col>
+                            <div>IMDb ID: {imdbID} </div>
+
                         </Col>
                     </Row>
                 </Card>

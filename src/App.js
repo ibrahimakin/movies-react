@@ -3,6 +3,7 @@ import { Layout, Row, Alert, Modal, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import Loader from 'react-loader-spinner';
 import { SearchBox, ItemContainer, MovieDetails } from './Components';
+import Pagination from './Components/Pagination';
 
 import './App.css';
 
@@ -18,6 +19,8 @@ function App() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [q, setQuery] = useState('Pokemon');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(5);
 
   const [activateModal, setActivateModal] = useState(false);
   const [detail, setShowDetail] = useState(false);
@@ -29,7 +32,7 @@ function App() {
     setError(null);
     setData(null);
 
-    fetch(`http://www.omdbapi.com/?s=${q}&apikey=${API_KEY}`)
+    fetch(`https://www.omdbapi.com/?s=${q}&apikey=${API_KEY}`)
       .then(resp => resp)
       .then(resp => resp.json())
       .then(response => {
@@ -40,6 +43,7 @@ function App() {
           setData(response.Search);
         }
 
+
         setLoading(false);
       })
       .catch(({ message }) => {
@@ -48,6 +52,14 @@ function App() {
       })
 
   }, [q]);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  console.log(data);
+
+  const currentPosts = data ? data.slice(indexOfFirstPost, indexOfLastPost) : null;
+
+  // Change page
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   return (
 
@@ -73,7 +85,7 @@ function App() {
                 </div>
               }
 
-              {data !== null && data.length > 0 && data.map((result, index) => (
+              {currentPosts !== null && currentPosts.length > 0 && currentPosts.map((result, index) => (
                 <ItemContainer
                   ShowDetail={setShowDetail}
                   DetailRequest={setDetailRequest}
@@ -84,6 +96,12 @@ function App() {
                 />
               ))}
             </Row>
+            {data !== null && data.length > 0 &&
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={data.length}
+                paginate={paginate}
+              />}
           </div>
 
           <Modal
