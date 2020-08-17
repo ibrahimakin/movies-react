@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Layout, Row, Alert, Modal, Typography } from 'antd';
 import 'antd/dist/antd.css';
 import Loader from 'react-loader-spinner';
-import { Pagination, SearchBox, ItemContainer, MovieDetails } from './Components';
+import { /*Pagination,*/ SearchBox, ItemContainer, MovieDetails } from './Components';
+import Pagination from "react-js-pagination";
 import './App.css';
+require("./Components/pagination.css");
+
 
 
 const API_KEY = 'b1fc3699';
@@ -23,6 +26,7 @@ function App() {
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
+  const [activeLink, setActiveLink] = useState(1);
 
   const [activateModal, setActivateModal] = useState(false);
   const [detail, setShowDetail] = useState(false);
@@ -42,7 +46,9 @@ function App() {
           setError(response.Error);
         }
         else {
-          setData(response.Search);
+          //console.log(response.Search);
+          //console.log(response.Search.sort((a, b) => (a.Year > b.Year) ? 1 : -1));
+          setData(response.Search.sort((a, b) => (a.Year > b.Year) ? 1 : -1));
           setTotalResults(response.totalResults);
         }
 
@@ -60,8 +66,20 @@ function App() {
 
   const currentPosts = data ? data.slice(indexOfFirstPost, indexOfLastPost) : null;
 
-  // Change page
-  const paginate = pageNumber => setCurrentPage(pageNumber);
+  // Change page (to use with old pagination)
+  //const paginate = pageNumber => setCurrentPage(pageNumber);
+  // New
+  const paginate = pageNumber => {
+    setActiveLink(pageNumber);
+    if ((pageNumber % 2) === 1) {
+      setPage((pageNumber / 2) + 1); pageNumber = 1
+    }
+    else {
+      setPage(pageNumber / 2);
+      pageNumber = 2
+    }
+    setCurrentPage(pageNumber)
+  };
 
   return (
 
@@ -74,7 +92,7 @@ function App() {
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-            <SearchBox searchHandler={setQuery} defaultValue={q} />
+            <SearchBox searchHandler={setQuery} defaultValue={q} setPage={setPage} setCurrentPage={setCurrentPage} />
             <br />
             <Row gutter={16} type="flex" justify="center">
               {loading &&
@@ -98,13 +116,25 @@ function App() {
                 />
               ))}
             </Row>
-            {data !== null && data.length > 0 &&
+            {/*data !== null && data.length > 0 &&
               <Pagination
                 postsPerPage={postsPerPage}
                 totalPosts={totalResults}
                 paginate={paginate}
                 setPage={setPage}
-              />}
+            />*/}
+            {data !== null && data.length > 0 &&
+              <Pagination
+                activePage={activeLink}
+                itemsCountPerPage={5}
+                totalItemsCount={parseInt(totalResults)}
+                pageRangeDisplayed={5}
+                onChange={paginate}
+                itemClass="item"
+                linkClass="link"
+                activeLinkClass="activeLink"
+              />
+            }
           </div>
 
 

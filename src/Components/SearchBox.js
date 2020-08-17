@@ -4,7 +4,7 @@ import { Input, Row, Col } from 'antd';
 
 const { Search } = Input;
 
-const SearchBox = ({ searchHandler, defaultValue }) => {
+const SearchBox = ({ searchHandler, defaultValue, setPage, setCurrentPage }) => {
     return (
         <Row>
             <Col span={12} offset={6}>
@@ -13,7 +13,7 @@ const SearchBox = ({ searchHandler, defaultValue }) => {
                     enterButton="Search"
                     size="large"
                     defaultValue={defaultValue}
-                    onSearch={value => searchHandler(value)} />
+                    onSearch={value => { searchHandler(value); setPage(1); setCurrentPage(1) }} />
             </Col>
         </Row>
     )
