@@ -92,7 +92,7 @@ function App() {
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-            <SearchBox searchHandler={setQuery} defaultValue={q} setPage={setPage} setCurrentPage={setCurrentPage} />
+            <SearchBox searchHandler={setQuery} defaultValue={q} setPage={setPage} setCurrentPage={setCurrentPage} setActiveLink={setActiveLink} />
             <br />
             <Row gutter={16} type="flex" justify="center">
               {loading &&
