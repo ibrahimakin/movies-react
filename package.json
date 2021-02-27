@@ -1,5 +1,5 @@
 {
-  "hompage": "http://ibrahimakin.github.io/movies-web-page",
+  "homepage": "/movies",
   "name": "movies",
   "version": "0.1.0",
   "private": true,

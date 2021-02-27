@@ -7,17 +7,11 @@ import Pagination from "react-js-pagination";
 import './App.css';
 require("./Components/pagination.css");
 
-
-
 const API_KEY = 'b1fc3699';
 const { Header, Content, Footer } = Layout;
 const TextTitle = Typography.Title;
 
-
-
-function App() {
-
-
+function Movies() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -25,15 +19,13 @@ function App() {
   const [p, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(5);
+  const [postsPerPage] = useState(10);
   const [activeLink, setActiveLink] = useState(1);
-
   const [activateModal, setActivateModal] = useState(false);
   const [detail, setShowDetail] = useState(false);
   const [detailRequest, setDetailRequest] = useState(false);
 
   useEffect(() => {
-
     setLoading(true);
     setError(null);
     setData(null);
@@ -59,8 +51,8 @@ function App() {
         setError(message);
         setLoading(false);
       })
-
   }, [q, p]);
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
@@ -71,18 +63,21 @@ function App() {
   // New
   const paginate = pageNumber => {
     setActiveLink(pageNumber);
-    if ((pageNumber % 2) === 1) {
-      setPage((pageNumber / 2) + 1); pageNumber = 1
+    if (postsPerPage < 10) {
+      if ((pageNumber % 2) === 1) {
+        setPage((pageNumber / 2) + 1); pageNumber = 1
+      }
+      else {
+        setPage(pageNumber / 2);
+        pageNumber = 2
+      }
+      setCurrentPage(pageNumber);
     }
-    else {
-      setPage(pageNumber / 2);
-      pageNumber = 2
-    }
-    setCurrentPage(pageNumber)
+    setPage(pageNumber);
+
   };
 
   return (
-
     <div className="App">
       <Layout className="layout">
         <Header>
@@ -98,22 +93,22 @@ function App() {
               {loading &&
                 <Loader />
               }
-
               {error !== null &&
                 <div style={{ margin: '20px 0' }}>
                   <Alert message={error} type="error" />
                 </div>
               }
-
               {currentPosts !== null && currentPosts.length > 0 && currentPosts.map((result, index) => (
-                <ItemContainer
-                  ShowDetail={setShowDetail}
-                  DetailRequest={setDetailRequest}
-                  ActivateModal={setActivateModal}
-                  key={index}
-                  {...result}
-                  API_KEY={API_KEY}
-                />
+                <div key={index}>
+                  <ItemContainer
+                    ShowDetail={setShowDetail}
+                    DetailRequest={setDetailRequest}
+                    ActivateModal={setActivateModal}
+                    key={index}
+                    {...result}
+                    API_KEY={API_KEY}
+                  />
+                </div>
               ))}
             </Row>
             {/*data !== null && data.length > 0 &&
@@ -126,7 +121,7 @@ function App() {
             {data !== null && data.length > 0 &&
               <Pagination
                 activePage={activeLink}
-                itemsCountPerPage={5}
+                itemsCountPerPage={postsPerPage}
                 totalItemsCount={parseInt(totalResults)}
                 pageRangeDisplayed={5}
                 onChange={paginate}
@@ -136,8 +131,6 @@ function App() {
               />
             }
           </div>
-
-
           <Modal
             title='Detail'
             centered
@@ -159,4 +152,4 @@ function App() {
 }
 
 
-export default App;
+export default Movies;
