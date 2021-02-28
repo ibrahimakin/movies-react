@@ -6,8 +6,8 @@ const { Search } = Input;
 
 const SearchBox = ({ searchHandler, defaultValue, setPage, setCurrentPage, setActiveLink }) => {
     return (
-        <Row>
-            <Col span={12} offset={6}>
+        <Row id="searchbox-container">
+            <Col id="searchbox" span={12}>
                 <Search
                     placeholder="enter movie, series, episode name"
                     enterButton="Search"

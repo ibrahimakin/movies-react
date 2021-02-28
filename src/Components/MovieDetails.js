@@ -5,14 +5,15 @@ const TextTitle = Typography.Title;
 
 const MovieDetails = ({ Title, Poster, Director, Actors, imdbRating, Rated, Runtime, Genre, Plot }) => {
     return (
-        <Row>
-            <Col span={11}>
+        <div id="detail-container">
+        <table><tr>
+            <td>
                 <img
                     src={Poster === 'N/A' ? require('../Images/ImageNotFound.png') : Poster}
                     alt={Title}
                 />
-            </Col>
-            <Col span={13}>
+            </td>
+            <td id="detail-col">
                 <Row>
                     <Col span={21}>
                         <TextTitle level={4}>{Title}</TextTitle></Col>
@@ -36,8 +37,9 @@ const MovieDetails = ({ Title, Poster, Director, Actors, imdbRating, Rated, Runt
                 <Row>
                     <Col>{Plot}</Col>
                 </Row>
-            </Col>
-        </Row>
+            </td>
+        </tr></table>
+        </div>
     )
 };
 

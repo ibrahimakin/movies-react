@@ -5,7 +5,6 @@ const { Meta } = Card;
 
 const ItemContainer = ({ Title, imdbID, Poster, Year, ShowDetail, DetailRequest, ActivateModal, API_KEY }) => {
     const clickHandler = () => {
-
         ActivateModal(true);
         DetailRequest(true);
         fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`)
@@ -42,7 +41,6 @@ const ItemContainer = ({ Title, imdbID, Poster, Year, ShowDetail, DetailRequest,
                         </Col>
                         <Col>
                             <div>IMDb ID: {imdbID} </div>
-
                         </Col>
                     </Row>
                 </Card>

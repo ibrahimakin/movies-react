@@ -1,4 +1,11 @@
-
+.pagination {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+}
 .item {
   display:inline;
 }
