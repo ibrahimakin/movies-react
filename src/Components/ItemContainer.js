@@ -1,9 +1,10 @@
 import React from 'react';
 import { Row, Col, Card } from 'antd';
+import { langObjMovies } from '../Lang';
 
 const { Meta } = Card;
 
-const ItemContainer = ({ Title, imdbID, Poster, Year, ShowDetail, DetailRequest, ActivateModal, API_KEY }) => {
+const ItemContainer = ({ Title, imdbID, Poster, Year, ShowDetail, DetailRequest, ActivateModal, API_KEY, Lang }) => {
     const clickHandler = () => {
         ActivateModal(true);
         DetailRequest(true);
@@ -29,7 +30,7 @@ const ItemContainer = ({ Title, imdbID, Poster, Year, ShowDetail, DetailRequest,
                     <Meta title={Title} description={false} style={{ textAlign: 'center' }}/>
                     <Row className="gutter-row" style={{ marginTop: '10px', justifyContent: 'center' }}>
                         <Col>
-                            <div><span lang-tag="year">Year</span>: {Year}</div>
+                            <div><span lang-tag="year">{langObjMovies[Lang]['year']}</span>: {Year}</div>
                         </Col>
                         <Col>
                             <div>IMDb ID: {imdbID} </div>

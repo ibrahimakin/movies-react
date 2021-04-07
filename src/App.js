@@ -3,6 +3,8 @@ import { Layout, Row, Alert, Modal, Typography } from 'antd';
 import Loader from 'react-loader-spinner';
 import Pagination from "react-js-pagination";
 import { SearchBox, ItemContainer, MovieDetails } from './Components';
+import { getLangMovies } from './Helpers';
+import { langObjMovies } from './Lang';
 import 'antd/dist/antd.css';
 import './App.css';
 
@@ -23,6 +25,8 @@ function Movies() {
   const [activateModal, setActivateModal] = useState(false);
   const [detail, setShowDetail] = useState(false);
   const [detailRequest, setDetailRequest] = useState(false);
+
+  let lang = getLangMovies();
 
   useEffect(() => {
     setLoading(true);
@@ -78,7 +82,7 @@ function Movies() {
         </Header>
         <Content style={{ padding: '0 50px' }}>
           <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
-            <SearchBox searchHandler={setQuery} defaultValue={q} setPage={setPage} setCurrentPage={setCurrentPage} setActiveLink={setActiveLink} />
+            <SearchBox searchHandler={setQuery} defaultValue={q} setPage={setPage} setCurrentPage={setCurrentPage} setActiveLink={setActiveLink} Lang={lang} />
             <Row gutter={16} type="flex" justify="center">
               {loading &&
                 <Loader />
@@ -94,6 +98,7 @@ function Movies() {
                     ShowDetail={setShowDetail}
                     DetailRequest={setDetailRequest}
                     ActivateModal={setActivateModal}
+                    Lang={lang}
                     {...result}
                     API_KEY={API_KEY}
                   />
@@ -114,18 +119,18 @@ function Movies() {
             }
           </div>
           <Modal
-            title={<span lang-tag="details">Details</span>}
+            title={<span lang-tag="details">{langObjMovies[lang]['details']}</span>}
             centered visible={activateModal}
             onCancel={() => setActivateModal(false)}
             footer={null} width={800}
           >
             {detailRequest === false ?
-              (<MovieDetails {...detail} />) :
+              (<MovieDetails {...detail} Lang={lang} />) :
               (<Loader />)
             }
           </Modal>
         </Content>
-        <Footer style={{ textAlign: 'center' }}><a href='https://github.com/ibrahimAKIN' >github.com/ibrahimAKIN</a></Footer>
+        <Footer style={{ textAlign: 'center' }}><a href='https://github.com/ibrahimAKIN'>github.com/ibrahimAKIN</a></Footer>
       </Layout>
     </div >
   );
