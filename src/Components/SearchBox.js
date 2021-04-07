@@ -6,11 +6,11 @@ const { Search } = Input;
 
 const SearchBox = ({ searchHandler, defaultValue, setPage, setCurrentPage, setActiveLink }) => {
     return (
-        <Row>
-            <Col span={12} offset={6}>
+        <Row id="searchbox-container">
+            <Col id="searchbox" span={12}>
                 <Search
-                    placeholder="enter movie, series, episode name"
-                    enterButton="Search"
+                    placeholder="Enter movie, series, episode name"
+                    enterButton={<span lang-tag="search">Search</span>}
                     size="large"
                     defaultValue={defaultValue}
                     onSearch={value => { searchHandler(value); setPage(1); setCurrentPage(1); setActiveLink(1); }} />

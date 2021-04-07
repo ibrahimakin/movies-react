@@ -5,7 +5,6 @@ const { Meta } = Card;
 
 const ItemContainer = ({ Title, imdbID, Poster, Year, ShowDetail, DetailRequest, ActivateModal, API_KEY }) => {
     const clickHandler = () => {
-
         ActivateModal(true);
         DetailRequest(true);
         fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`)
@@ -24,25 +23,16 @@ const ItemContainer = ({ Title, imdbID, Poster, Year, ShowDetail, DetailRequest,
             <div className="gutter-box">
                 <Card
                     style={{ width: 200 }}
-                    cover={
-                        <img
-                            alt={Title}
-                            src={Poster === 'N/A' ? require('../Images/ImageNotFound.png') : Poster}
-                        />
-                    }
+                    cover={<img alt={Title} src={Poster === 'N/A' ? require('../Images/ImageNotFound.png') : Poster}/>}
                     onClick={() => clickHandler()}
                 >
-                    <Meta
-                        title={Title}
-                        description={false}
-                    />
-                    <Row style={{ marginTop: '10px', justifyContent: 'center' }} className="gutter-row">
+                    <Meta title={Title} description={false} style={{ textAlign: 'center' }}/>
+                    <Row className="gutter-row" style={{ marginTop: '10px', justifyContent: 'center' }}>
                         <Col>
-                            <div> Year: {Year}</div>
+                            <div><span lang-tag="year">Year</span>: {Year}</div>
                         </Col>
                         <Col>
                             <div>IMDb ID: {imdbID} </div>
-
                         </Col>
                     </Row>
                 </Card>
