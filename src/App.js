@@ -7,7 +7,9 @@ import Pagination from "react-js-pagination";
 import './App.css';
 require("./Components/pagination.css");
 
-const API_KEY = 'b1fc3699';
+
+
+const API_KEY =  process.env.REACT_APP_OMDB_API_KEY;
 const { Header, Content, Footer } = Layout;
 const TextTitle = Typography.Title;
 
