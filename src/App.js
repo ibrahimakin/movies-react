@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Row, Alert, Modal, Typography } from 'antd';
-import 'antd/dist/antd.css';
 import Loader from 'react-loader-spinner';
-import { /*Pagination,*/ SearchBox, ItemContainer, MovieDetails } from './Components';
 import Pagination from "react-js-pagination";
+import { SearchBox, ItemContainer, MovieDetails } from './Components';
+import 'antd/dist/antd.css';
 import './App.css';
-require("./Components/pagination.css");
 
-
-
-const API_KEY =  process.env.REACT_APP_OMDB_API_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
 const { Header, Content, Footer } = Layout;
 const TextTitle = Typography.Title;
 
@@ -40,8 +37,6 @@ function Movies() {
           setError(response.Error);
         }
         else {
-          //console.log(response.Search);
-          //console.log(response.Search.sort((a, b) => (a.Year > b.Year) ? 1 : -1));
           setData(response.Search.sort((a, b) => (a.Year > b.Year) ? 1 : -1));
           setTotalResults(response.totalResults);
         }
@@ -58,9 +53,6 @@ function Movies() {
 
   const currentPosts = data ? data.slice(indexOfFirstPost, indexOfLastPost) : null;
 
-  // Change page (to use with old pagination)
-  //const paginate = pageNumber => setCurrentPage(pageNumber);
-  // New
   const paginate = pageNumber => {
     setActiveLink(pageNumber);
     if (postsPerPage < 10) {
@@ -74,7 +66,6 @@ function Movies() {
       setCurrentPage(pageNumber);
     }
     setPage(pageNumber);
-
   };
 
   return (
@@ -82,7 +73,7 @@ function Movies() {
       <Layout className="layout">
         <Header>
           <div style={{ textAlign: 'center' }}>
-            <TextTitle style={{ color: '#ffffff', marginTop: '14px' }} level={3}>MOVIES</TextTitle>
+            <TextTitle style={{ color: '#ffffff', marginTop: '14px' }} level={3}><span lang-tag="movies">MOVIES</span></TextTitle>
           </div>
         </Header>
         <Content style={{ padding: '0 50px' }}>
@@ -103,20 +94,12 @@ function Movies() {
                     ShowDetail={setShowDetail}
                     DetailRequest={setDetailRequest}
                     ActivateModal={setActivateModal}
-                    key={index}
                     {...result}
                     API_KEY={API_KEY}
                   />
                 </div>
               ))}
             </Row>
-            {/*data !== null && data.length > 0 &&
-              <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={totalResults}
-                paginate={paginate}
-                setPage={setPage}
-            />*/}
             {data !== null && data.length > 0 &&
               <Pagination
                 activePage={activeLink}
@@ -131,12 +114,10 @@ function Movies() {
             }
           </div>
           <Modal
-            title='Detail'
-            centered
-            visible={activateModal}
+            title={<span lang-tag="details">Details</span>}
+            centered visible={activateModal}
             onCancel={() => setActivateModal(false)}
-            footer={null}
-            width={800}
+            footer={null} width={800}
           >
             {detailRequest === false ?
               (<MovieDetails {...detail} />) :

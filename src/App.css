@@ -16,3 +16,23 @@
   padding-left: 10px;
   vertical-align: top;
 }
+
+.pagination {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+}
+.item {
+  display:inline;
+}
+.link {
+  padding: 10px;
+  font-size: 15px;
+}
+.activeLink{
+  border-style: double;
+  padding: 5px;
+}
