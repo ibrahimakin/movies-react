@@ -1,9 +1,10 @@
 import React from 'react';
 import { Row, Col, Tag, Typography } from 'antd';
+import { langObjMovies } from '../Lang';
 
 const TextTitle = Typography.Title;
 
-const MovieDetails = ({ Title, Poster, Director, Actors, imdbRating, Rated, Runtime, Genre, Plot }) => {
+const MovieDetails = ({ Title, Poster, Director, Actors, imdbRating, Rated, Runtime, Genre, Plot, Lang }) => {
     return (
         <div id="detail-container">
             <table>
@@ -27,10 +28,10 @@ const MovieDetails = ({ Title, Poster, Director, Actors, imdbRating, Rated, Runt
                                 </Col>
                             </Row>
                             <Row style={{ marginBottom: '10px' }}>
-                                <Col><span lang-tag="director">Director</span>: {Director}</Col>
+                                <Col><span lang-tag="director">{langObjMovies[Lang]['director']}</span>: {Director}</Col>
                             </Row>
                             <Row style={{ marginBottom: '10px' }}>
-                                <Col><span lang-tag="cast">Cast</span>: {Actors}</Col>
+                                <Col><span lang-tag="cast">{langObjMovies[Lang]['cast']}</span>: {Actors}</Col>
                             </Row>
                             <Row>
                                 <Col>{Plot}</Col>
