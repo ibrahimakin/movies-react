@@ -4,19 +4,13 @@ import { langObjMovies } from '../Lang';
 
 const { Search } = Input;
 
-const SearchBox = ({ searchHandler, defaultValue, setPage, setCurrentPage, setActiveLink, Lang }) => {
-    return (
-        <Row id="searchbox-container">
-            <Col id="searchbox" span={12}>
-                <Search
-                    placeholder={langObjMovies[Lang]['placeholder']}
-                    enterButton={<span lang-tag="search">Search</span>}
-                    size="large"
-                    defaultValue={defaultValue}
-                    onSearch={value => { searchHandler(value); setPage(1); setCurrentPage(1); setActiveLink(1); }} />
-            </Col>
-        </Row>
-    )
-};
-
+const SearchBox = ({ searchHandler, defaultValue, setPage, Lang }) =>
+    <Row id="searchbox-container">
+        <Col id="searchbox" span={12}>
+            <Search enterButton={<span lang-tag="search">Search</span>}
+                onSearch={value => { searchHandler(value); setPage(1); }}
+                placeholder={langObjMovies[Lang]['placeholder']}
+                defaultValue={defaultValue} size="large" />
+        </Col>
+    </Row>;
 export { SearchBox };
