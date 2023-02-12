@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Tag, Alert, Typography } from 'antd';
 import Loader from 'react-loader-spinner';
-import { langObjMovies } from '../Lang';
+import { langObjMovies } from '../lang';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const TextTitle = Typography.Title;
@@ -32,7 +32,7 @@ const MovieDetails = ({ selected, lang }) => {
                     <tbody>
                         <tr>
                             <td>
-                                <img src={data?.Poster === 'N/A' ? require('../Images/ImageNotFound.png') : data?.Poster} alt={data?.Title} />
+                                <img src={data?.Poster === 'N/A' ? require('../images/ImageNotFound.png') : data?.Poster} alt={data?.Title} />
                             </td>
                             <td id="detail-col">
                                 <Row>

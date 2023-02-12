@@ -1,15 +1,15 @@
 import React from 'react';
 import { Input, Row, Col } from 'antd';
-import { langObjMovies } from '../Lang';
+import { langObjMovies } from '../lang';
 
 const { Search } = Input;
 
-const SearchBox = ({ searchHandler, defaultValue, setPage, Lang }) =>
+const SearchBox = ({ searchHandler, defaultValue, setPage, lang }) =>
     <Row id="searchbox-container">
         <Col id="searchbox" span={12}>
-            <Search enterButton={<span lang-tag="search">Search</span>}
+            <Search enterButton={<span lang-tag="search">{langObjMovies[lang]['search']}</span>}
                 onSearch={value => { searchHandler(value); setPage(1); }}
-                placeholder={langObjMovies[Lang]['placeholder']}
+                placeholder={langObjMovies[lang]['placeholder']}
                 defaultValue={defaultValue} size="large" />
         </Col>
     </Row>;

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Row, Alert, Modal, Typography } from 'antd';
-import Pagination from 'react-js-pagination';
+import { Layout, Row, Alert, Modal, Typography, Pagination } from 'antd';
 import Loader from 'react-loader-spinner';
-import { SearchBox, ItemContainer, MovieDetails } from './Components';
-import { getLangMovies } from './Helpers';
-import { langObjMovies } from './Lang';
-import 'antd/dist/antd.css';
+import { SearchBox, ItemContainer, MovieDetails } from './components';
+import { getLangMovies } from './helpers';
+import { langObjMovies } from './lang';
 import './App.css';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -40,12 +38,12 @@ function Movies() {
         <Layout>
             <Header>
                 <TextTitle level={3}>
-                    <span lang-tag="movies">MOVIES</span>
+                    <span lang-tag="movies">{langObjMovies[lang]['movies']}</span>
                 </TextTitle>
             </Header>
             <Content>
                 <div>
-                    <SearchBox searchHandler={setQuery} defaultValue={q} setPage={setPage} Lang={lang} />
+                    <SearchBox searchHandler={setQuery} defaultValue={q} setPage={setPage} lang={lang} />
                     <Row gutter={16} type="flex" justify="center">
                         {loading ? <Loader className="loader" /> :
                             data?.Error ? <Alert className="error" message={data.Error} type="error" /> :
@@ -56,16 +54,13 @@ function Movies() {
                                 )}
                     </Row>
                     {data?.Search && data.Search.length > 0 &&
-                        <Pagination totalItemsCount={parseInt(data?.totalResults)}
-                            itemsCountPerPage={10} pageRangeDisplayed={5}
-                            onChange={setPage} activePage={p}
-                            itemClass="item" linkClass="link"
-                            activeLinkClass="active-link" />
+                        <Pagination total={parseInt(data?.totalResults)} showSizeChanger={false}
+                            onChange={setPage} current={p} />
                     }
                 </div>
                 <Modal title={<span lang-tag="details">{langObjMovies[lang]['details']}</span>}
-                    visible={selected.show} footer={null} width={800} centered
-                    onCancel={() => setSelected(s => ({ ...s, show: false }))}>
+                    onCancel={() => setSelected(s => ({ ...s, show: false }))}
+                    open={selected.show} footer={null} width={800} centered>
                     <MovieDetails selected={selected.id} lang={lang} />
                 </Modal>
             </Content>
