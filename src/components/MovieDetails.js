@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Tag, Alert, Typography } from 'antd';
 import Loader from 'react-loader-spinner';
-import { langObjMovies } from '../lang';
+import { lang_movies } from '../lang';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 const TextTitle = Typography.Title;
@@ -12,10 +12,23 @@ const MovieDetails = ({ selected, lang }) => {
 
     useEffect(() => {
         setLoading(true);
+        const translate = async q => {
+            const res = await (await
+                fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&dj=1&q=${q}`)
+            ).json();
+            let translation = '';
+            for (let sentence of res.sentences) translation += sentence.trans;
+            return translation;
+        }
         fetch(`https://www.omdbapi.com/?i=${selected}&apikey=${API_KEY}`)
-            .then(resp => resp)
-            .then(resp => resp.json())
-            .then(response => {
+            .then(resp => resp.json()).then(async response => {
+                if (lang !== 'en') {
+                    try {
+                        response.Runtime = response.Runtime.replace('min', lang_movies[lang]['min']);
+                        response.Genre = await translate(response.Genre);
+                        response.Plot = await translate(response.Plot);
+                    } catch (e) { }
+                }
                 setData(response);
                 setLoading(false);
             })
@@ -23,7 +36,7 @@ const MovieDetails = ({ selected, lang }) => {
                 setData({ Error: message });
                 setLoading(false);
             });
-    }, [selected]);
+    }, [selected, lang]);
 
     return loading ? <Loader className="loader" /> :
         data?.Error ? <Alert className="error" message={data.Error} type="error" /> :
@@ -49,10 +62,10 @@ const MovieDetails = ({ selected, lang }) => {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <Col><span lang-tag="director">{langObjMovies[lang]['director']}</span>: {data?.Director}</Col>
+                                    <Col><span lang-tag="director">{lang_movies[lang]['director']}</span>: {data?.Director}</Col>
                                 </Row>
                                 <Row>
-                                    <Col><span lang-tag="cast">{langObjMovies[lang]['cast']}</span>: {data?.Actors}</Col>
+                                    <Col><span lang-tag="cast">{lang_movies[lang]['cast']}</span>: {data?.Actors}</Col>
                                 </Row>
                                 <Row>
                                     <Col>{data?.Plot}</Col>

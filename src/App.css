@@ -18,6 +18,10 @@
     transition: color .3s cubic-bezier(.645, .045, .355, 1);
 }
 
+#topnav {
+    background-color: var(--bg-clr);
+}
+
 #collapse:hover+.filled,
 .pin-menu:hover+.filled,
 .filled:hover {
@@ -32,23 +36,27 @@
     --nav-clr: var(--movies-hvr-clr);
 }
 
-#root {
-    width: 100%;
-    overflow: auto;
-}
-
 .ant-layout {
     min-height: 100%;
 }
 
-.ant-layout-content {
-    padding: 0px 50px;
+.ant-layout>.ant-layout-header {
+    height: 50px;
 }
 
-.ant-layout-content>div {
+.ant-layout-content {
+    display: flex;
+    flex-direction: column;
     background-color: #fff;
-    min-height: 280px;
-    padding: 24px;
+    max-width: 1150px;
+    padding: 15px;
+    margin: auto;
+    width: 100%;
+}
+
+#searchbox-container+div {
+    align-content: start;
+    flex: auto;
 }
 
 .ant-card-meta,
@@ -88,6 +96,10 @@ h4.imdb-rating {
     color: var(--movies-hvr-clr);
 }
 
+h4.imdb-rating {
+    white-space: nowrap;
+}
+
 .ant-card {
     cursor: pointer;
     width: 200px;
@@ -100,7 +112,7 @@ h4.imdb-rating {
 
 h3.ant-typography {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 10px;
     color: #fff;
 }
 
@@ -109,6 +121,7 @@ h3.ant-typography {
 }
 
 .item-container {
+    max-width: unset;
     margin: 20px 0;
 }
 
@@ -157,4 +170,10 @@ h3.ant-typography {
 
 .ant-pagination .ant-pagination-item>a {
     transition: color .3s cubic-bezier(.645, .045, .355, 1);
+}
+
+@media screen and (max-width: 450px) {
+    #searchbox-container {
+        top: var(--topnav-height);
+    }
 }

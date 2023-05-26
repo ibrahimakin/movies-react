@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Card } from 'antd';
-import { langObjMovies } from '../lang';
+import { lang_movies } from '../lang';
 
 const { Meta } = Card;
 
@@ -11,7 +11,7 @@ const ItemContainer = ({ Title, imdbID, Poster, Year, setSelected, lang }) =>
             <Meta title={Title} description={false} />
             <Row>
                 <Col>
-                    <div><span lang-tag="year">{langObjMovies[lang]['year']}</span>: {Year}</div>
+                    <div><span lang-tag="year">{lang_movies[lang]['year']}</span>: {Year}</div>
                 </Col>
                 <Col>
                     <div>IMDb ID: {imdbID}</div>
