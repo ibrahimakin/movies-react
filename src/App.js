@@ -39,7 +39,7 @@ function Movies() {
             </Header>
             <Content>
                 <SearchBox searchHandler={setQuery} defaultValue={q} setPage={setPage} lang={lang} />
-                <Row gutter={16} type="flex" justify="center">
+                <Row gutter={24} type="flex" justify="center">
                     {loading ? <Loader className="loader" /> :
                         data?.Error ? <Alert className="error" message={data.Error} type="error" /> :
                             data?.Search?.length > 0 && data.Search.map((item, index) =>
@@ -48,7 +48,7 @@ function Movies() {
                 </Row>
                 {data?.Search?.length > 0 &&
                     <Pagination total={parseInt(data?.totalResults)} current={p}
-                        onChange={setPage} showSizeChanger={false} />
+                        onChange={setPage} showSizeChanger={false} responsive />
                 }
                 <Modal title={<span lang-tag="details">{lang_movies[lang]['details']}</span>}
                     onCancel={() => setSelected(s => ({ ...s, show: false }))}

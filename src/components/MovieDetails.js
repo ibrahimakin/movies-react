@@ -40,40 +40,38 @@ const MovieDetails = ({ selected, lang }) => {
 
     return loading ? <Loader className="loader" /> :
         data?.Error ? <Alert className="error" message={data.Error} type="error" /> :
-            <div id="detail-container">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <img src={data?.Poster === 'N/A' ? require('../images/ImageNotFound.png') : data?.Poster} alt={data?.Title} />
-                            </td>
-                            <td id="detail-col">
-                                <Row>
-                                    <Col span={21}><TextTitle level={4}>{data?.Title}</TextTitle></Col>
-                                    <Col span={3}>
-                                        <TextTitle level={4} className="imdb-rating">{data?.imdbRating}</TextTitle>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <Tag>{data?.Rated}</Tag>
-                                        <Tag>{data?.Runtime}</Tag>
-                                        <Tag>{data?.Genre}</Tag>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col><span lang-tag="director">{lang_movies[lang]['director']}</span>: {data?.Director}</Col>
-                                </Row>
-                                <Row>
-                                    <Col><span lang-tag="cast">{lang_movies[lang]['cast']}</span>: {data?.Actors}</Col>
-                                </Row>
-                                <Row>
-                                    <Col>{data?.Plot}</Col>
-                                </Row>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src={data?.Poster === 'N/A' ? require('../images/ImageNotFound.png') : data?.Poster} alt={data?.Title} />
+                        </td>
+                        <td id="detail-col">
+                            <Row>
+                                <Col span={21}><TextTitle level={4}>{data?.Title}</TextTitle></Col>
+                                <Col span={3}>
+                                    <TextTitle level={4} className="imdb-rating">{data?.imdbRating}</TextTitle>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <Tag>{data?.Rated}</Tag>
+                                    <Tag>{data?.Runtime}</Tag>
+                                    <Tag>{data?.Genre}</Tag>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col><span lang-tag="director">{lang_movies[lang]['director']}</span>: {data?.Director}</Col>
+                            </Row>
+                            <Row>
+                                <Col><span lang-tag="cast">{lang_movies[lang]['cast']}</span>: {data?.Actors}</Col>
+                            </Row>
+                            <Row>
+                                <Col>{data?.Plot}</Col>
+                            </Row>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 };
 export { MovieDetails };
