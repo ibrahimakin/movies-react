@@ -1,7 +1,7 @@
 :root {
     --movies-clr: #001529;
     --movies-hvr-clr: #4096ff;
-    --bg-clr: var(--movies-clr);
+    --bg-clr: #f5f5f5;
     --nav-clr: var(--movies-clr);
 }
 
@@ -19,7 +19,7 @@
 }
 
 #topnav {
-    background-color: var(--bg-clr);
+    background-color: var(--movies-clr);
 }
 
 #collapse:hover+.filled,
@@ -41,6 +41,8 @@
 }
 
 .ant-layout>.ant-layout-header {
+    padding-inline: unset;
+    margin-left: calc(-1 * var(--sidenav-width));
     height: 50px;
 }
 
@@ -112,6 +114,7 @@ h4.imdb-rating {
 
 h3.ant-typography {
     text-align: center;
+    margin-left: var(--sidenav-width);
     margin-top: 10px;
     color: #fff;
 }
@@ -138,13 +141,14 @@ h3.ant-typography {
     margin: auto;
 }
 
-#detail-container {
+.ant-modal-body {
     overflow: auto;
 }
 
 #detail-col {
     padding-left: 10px;
     vertical-align: top;
+    min-width: 350px;
 }
 
 #detail-col>.ant-row:nth-child(2) {
@@ -175,5 +179,12 @@ h3.ant-typography {
 @media screen and (max-width: 450px) {
     #searchbox-container {
         top: var(--topnav-height);
+    }
+}
+
+@media screen and (max-width: 705px) {
+    #searchbox {
+        max-width: unset;
+        flex: unset;
     }
 }
