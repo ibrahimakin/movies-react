@@ -5,21 +5,22 @@
     --nav-clr: var(--movies-clr);
 }
 
+.filled, .filled::before, .main div>span, .ant-pagination-item {
+    transition-timing-function: cubic-bezier(.645, .045, .355, 1);
+    transition-duration: .3s;
+}
+
 .filled {
     border: 1px solid var(--movies-clr);
-    transition: border-color .3s cubic-bezier(.645, .045, .355, 1);
+    transition-property: border-color;
 }
 
-.icon::before {
-    transition: background-color .3s cubic-bezier(.645, .045, .355, 1);
+.filled::before {
+    transition-property: background-color;
 }
 
-#sidenav .main div>span {
-    transition: color .3s cubic-bezier(.645, .045, .355, 1);
-}
-
-#topnav {
-    background-color: var(--movies-clr);
+.main div>span {
+    transition-property: opacity, color;
 }
 
 #collapse:hover+.filled,
@@ -61,12 +62,11 @@
     flex: auto;
 }
 
-.ant-card-meta,
-.ant-layout-footer {
+.ant-card-meta, .ant-layout-footer {
     text-align: center;
 }
 
-.ant-btn-primary {
+.ant-btn-primary, #topnav {
     background-color: var(--movies-clr);
 }
 
@@ -74,7 +74,6 @@
     border-color: var(--movies-clr);
 }
 
-.ant-pagination .ant-pagination-item-active a,
 .ant-layout-footer a {
     color: var(--movies-clr);
 }
@@ -84,15 +83,14 @@
 }
 
 .loader {
-    margin: 20px 0;
-    text-align: center;
+    margin: 20px auto;
 }
 
 .error {
-    margin: 43px 0;
-    text-align: center;
+    margin: 43px auto;
 }
 
+.ant-pagination-item-active:hover,
 .ant-layout-footer a:hover,
 h4.imdb-rating {
     color: var(--movies-hvr-clr);
@@ -142,13 +140,16 @@ h3.ant-typography {
 }
 
 .ant-modal-body {
+    display: flex;
     overflow: auto;
 }
 
 #detail-col {
-    padding-left: 10px;
-    vertical-align: top;
-    min-width: 350px;
+    margin-left: 10px;
+}
+
+#detail-col h4 {
+    margin-top: 0;
 }
 
 #detail-col>.ant-row:nth-child(2) {
@@ -169,16 +170,27 @@ h3.ant-typography {
 }
 
 .ant-pagination-item {
-    transition: border-color .3s cubic-bezier(.645, .045, .355, 1);
-}
-
-.ant-pagination .ant-pagination-item>a {
-    transition: color .3s cubic-bezier(.645, .045, .355, 1);
+    transition-property: border-color, color;
 }
 
 @media screen and (max-width: 450px) {
     #searchbox-container {
         top: var(--topnav-height);
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .ant-modal-body>div[id] {
+        min-width: 100%;
+    }
+
+    #image-col {
+        text-align: center;
+        margin: auto;
+    }
+
+    #image-col>img {
+        max-width: 100%;
     }
 }
 

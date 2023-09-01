@@ -47,8 +47,8 @@ function Movies() {
                             )}
                 </Row>
                 {data?.Search?.length > 0 &&
-                    <Pagination total={parseInt(data?.totalResults)} current={p}
-                        onChange={setPage} showSizeChanger={false} responsive />
+                    <Pagination total={parseInt(data?.totalResults)} itemRender={(p, t, e) => e.props.children}
+                        onChange={setPage} showSizeChanger={false} current={p} responsive />
                 }
                 <Modal title={<span lang-tag="details">{lang_movies[lang]['details']}</span>}
                     onCancel={() => setSelected(s => ({ ...s, show: false }))}
