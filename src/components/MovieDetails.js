@@ -41,7 +41,7 @@ const MovieDetails = ({ selected, lang }) => {
     return loading ? <Loader className="loader" /> :
         data?.Error ? <Alert className="error" message={data.Error} type="error" /> : <>
             <div id="image-col">
-                <img src={data?.Poster === 'N/A' ? require('../images/ImageNotFound.png') : data?.Poster} alt={data?.Title} />
+                {data?.Poster === 'N/A' ? <div className="not-found" lang-tag="not_found">{lang_movies[lang]['not_found']}</div> : <img src={data?.Poster} alt={data?.Title} />}
             </div>
             <div id="detail-col">
                 <Row>

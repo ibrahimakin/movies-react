@@ -144,8 +144,30 @@ h3.ant-typography {
     overflow: auto;
 }
 
+#image-col {
+    text-align: center;
+    margin: auto;
+}
+
+.not-found {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc;
+    color: #989898;
+    font-size: 12px;
+    height: 264px;
+    width: 198px;
+}
+
+.ant-card-cover>.not-found {
+    border-radius: 8px 8px 0 0;
+    display: flex;
+}
+
 #detail-col {
     margin-left: 10px;
+    width: 100%;
 }
 
 #detail-col h4 {
@@ -184,12 +206,7 @@ h3.ant-typography {
         min-width: 100%;
     }
 
-    #image-col {
-        text-align: center;
-        margin: auto;
-    }
-
-    #image-col>img {
+    #image-col>div, #image-col>img {
         max-width: 100%;
     }
 }
