@@ -5,9 +5,9 @@ import { lang_movies } from '../lang';
 const { Meta } = Card;
 
 const ItemContainer = ({ Title, imdbID, Poster, Year, setSelected, lang }) =>
-    <Col className="item-container" span={4}>
+    <Col className="item-container" span={4} title={Title}>
         <Card onClick={() => setSelected({ show: true, id: imdbID })}
-            cover={<img alt={Title} src={Poster === 'N/A' ? require('../images/ImageNotFound.png') : Poster} />}>
+            cover={Poster === 'N/A' ? <div className="not-found" lang-tag="not_found">{lang_movies[lang]['not_found']}</div> : <img alt={Title} src={Poster} />}>
             <Meta title={Title} description={false} />
             <Row>
                 <Col>

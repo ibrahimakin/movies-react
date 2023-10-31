@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Layout, Row, Alert, Modal, Typography, Pagination } from 'antd';
+import { useSearchParams } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import { SearchBox, ItemContainer, MovieDetails } from './components';
 import { lang_movies, getLangMovies } from './lang';
@@ -13,13 +14,16 @@ function Movies() {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
     const [selected, setSelected] = useState({ show: false, id: '' });
-    const [q, setQuery] = useState('Pokemon');
-    const [p, setPage] = useState(1);
+    const [params, setParams] = useSearchParams();
+    const search = params.get('s') || 'Pokemon';
+    const page = parseInt(params.get('p')) || 1;
     const lang = getLangMovies();
+    const searchbox = useRef();
 
     useEffect(() => {
         setLoading(true);
-        fetch(`https://www.omdbapi.com/?s=${q}&page=${p}&apikey=${API_KEY}`)
+        searchbox.current(search);
+        fetch(`https://www.omdbapi.com/?s=${search}&page=${page}&apikey=${API_KEY}`)
             .then(resp => resp.json()).then(response => {
                 setData(response);
                 setLoading(false);
@@ -28,7 +32,11 @@ function Movies() {
                 setData({ Error: message });
                 setLoading(false);
             });
-    }, [q, p]);
+    }, [search, page]);
+
+    const handleSearch = s => { if (s !== search) setParams({ s }) };
+
+    const handlePage = p => setParams({ s: search, p });
 
     return (
         <Layout>
@@ -38,7 +46,7 @@ function Movies() {
                 </TextTitle>
             </Header>
             <Content>
-                <SearchBox searchHandler={setQuery} defaultValue={q} setPage={setPage} lang={lang} />
+                <SearchBox onSearch={handleSearch} defaultValue={search} searchbox={searchbox} lang={lang} />
                 <Row gutter={24} type="flex" justify="center">
                     {loading ? <Loader className="loader" /> :
                         data?.Error ? <Alert className="error" message={data.Error} type="error" /> :
@@ -48,7 +56,7 @@ function Movies() {
                 </Row>
                 {data?.Search?.length > 0 &&
                     <Pagination total={parseInt(data?.totalResults)} itemRender={(p, t, e) => e.props.children}
-                        onChange={setPage} showSizeChanger={false} current={p} responsive />
+                        onChange={handlePage} showSizeChanger={false} current={page} responsive />
                 }
                 <Modal title={<span lang-tag="details">{lang_movies[lang]['details']}</span>}
                     onCancel={() => setSelected(s => ({ ...s, show: false }))}
