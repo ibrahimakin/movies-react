@@ -5,6 +5,16 @@
     --nav-clr: var(--movies-clr);
 }
 
+top-nav {
+    position: sticky;
+    z-index: 2;
+    top: 0;
+}
+
+#topnav {
+    position: unset;
+}
+
 .filled, .filled::before, .main div>span, .ant-pagination-item {
     transition-timing-function: cubic-bezier(.645, .045, .355, 1);
     transition-duration: .3s;
