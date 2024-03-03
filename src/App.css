@@ -11,8 +11,13 @@ top-nav {
     top: 0;
 }
 
+body {
+    min-height: 100%;
+    height: auto;
+}
+
 #topnav {
-    position: unset;
+    position: static;
 }
 
 .filled, .filled::before, .main div>span, .ant-pagination-item {
@@ -34,16 +39,18 @@ top-nav {
 }
 
 #collapse:hover+.filled,
-.pin-menu:hover+.filled,
-.filled:hover {
+.menu.hvr>.pin-menu:hover+.filled,
+:not(.menu)>.filled:hover,
+.menu.hvr>.filled:hover {
     border-color: var(--movies-hvr-clr);
 }
 
 #collapse:hover+.filled,
-.pin-menu:hover+.filled,
+.menu.hvr>.pin-menu:hover+.filled,
+:not(.menu)>.filled:hover,
+.menu.hvr>.filled:hover,
 .pin-menu:hover~span,
-.filled:hover+span,
-.filled:hover {
+.filled:hover+span {
     --nav-clr: var(--movies-hvr-clr);
 }
 
