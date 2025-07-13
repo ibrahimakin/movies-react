@@ -49,8 +49,9 @@ body {
 .menu.hvr>.pin-menu:hover+.filled,
 :not(.menu)>.filled:hover,
 .menu.hvr>.filled:hover,
-.pin-menu:hover~span,
-.filled:hover+span {
+.menu.hvr>.pin-menu:hover~span,
+.menu.hvr>.filled:hover+span,
+:not(.menu)>.filled:hover+span {
     --nav-clr: var(--movies-hvr-clr);
 }
 

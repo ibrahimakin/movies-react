@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Layout, Row, Alert, Modal, Typography, Pagination } from 'antd';
 import { useSearchParams } from 'react-router-dom';
 import Loader from 'react-loader-spinner';

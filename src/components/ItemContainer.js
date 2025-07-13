@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col, Card } from 'antd';
 import { lang_movies } from '../lang';
 
