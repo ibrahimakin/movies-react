@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Tag, Alert, Typography } from 'antd';
 import Loader from 'react-loader-spinner';
 import { lang_movies } from '../lang';

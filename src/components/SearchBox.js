@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Input, Row, Col } from 'antd';
 import { lang_movies } from '../lang';
 
